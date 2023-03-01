@@ -228,7 +228,7 @@ router.post('/save-course', authMiddleware, async(req, res)=>{
       { new: true }
     );
     res.status(200).send({
-      message: 'Result saved successfully',
+      message: 'Course saved successfully',
       success: true,
       data: updateUser
     })
