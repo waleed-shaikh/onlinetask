@@ -1,15 +1,24 @@
 import { message, Table } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteCourseById, getAllCourse } from "../../../apicalls/course";
 import PageTitle from "../../../components/PageTitle";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
+import Pagination from "./Pagination";
 
 function Course() {
   const navigate = useNavigate();
   const [course, setCourse] = React.useState([]);
   const dispatch = useDispatch();
+  const [currentPage, setCurrntPage] = useState(1);
+  const [coursePerPage, setCoursePerPage] = useState(5);
+
+  //get current posts
+  const indexOfLastCourse = currentPage * coursePerPage;
+  const indexOfFirstCourse = indexOfLastCourse - coursePerPage;
+  const currentCourse = course.slice(indexOfFirstCourse, indexOfLastCourse);
+  const totalCourse = course?.length
 
   const getCourseData = async () => {
     try {
@@ -94,8 +103,9 @@ function Course() {
       </div>
       <div className="divider"></div>
       <div className="overflow">
-        <Table columns={columns} dataSource={course} />
+        <Table columns={columns} dataSource={currentCourse} />
       </div>
+      <Pagination coursePerPage={coursePerPage} totalCourse={totalCourse} setCurrntPage={setCurrntPage}/>
     </div>
   );
 }
