@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-const Pagination = ({totalCourse, coursePerPage, setCurrntPage}) => {
+const Pagination = ({totalCourse, coursePerPage, setCurrntPage, currentPage}) => {
     const pageNumbers = [];
     for(let i=1; i<=Math.ceil(totalCourse / coursePerPage); i++){
         pageNumbers.push(i);
@@ -11,15 +11,13 @@ const Pagination = ({totalCourse, coursePerPage, setCurrntPage}) => {
     <div className='d-flex align-items-center justify-content-center'>
         <nav aria-label="Page navigation" className='p-3 border-1'>
             <ul className='pagination'>
-                <li class="page-item"><Link className="page-link" to="#">Previous</Link></li>
+            <button className="page-item page-link" disabled={currentPage === 1} onClick={()=>{setCurrntPage(currentPage-1)}}>Previous</button>
                     {pageNumbers?.map((number)=>{
-                        return <li class="page-item ">
-                            <Link className="page-link" to="#" onClick={()=>{setCurrntPage(number)}}>
-                                {number}
-                            </Link >
-                        </li>
+                        return <button className="page-item page-link" onClick={()=>{setCurrntPage(number)}}>
+                            {number}
+                        </button>
                     })}
-                <li class="page-item"><Link className="page-link" to="#">Next</Link></li>
+            <button className="page-item page-link" disabled={currentPage === Math.ceil(totalCourse / coursePerPage)} onClick={()=>{setCurrntPage(currentPage+1)}}>Next</button>
             </ul>
         </nav>
     </div>

@@ -105,7 +105,9 @@ function Course() {
       <div className="overflow">
         <Table columns={columns} dataSource={currentCourse} />
       </div>
-      <Pagination coursePerPage={coursePerPage} totalCourse={totalCourse} setCurrntPage={setCurrntPage}/>
+      <Pagination coursePerPage={coursePerPage} totalCourse={totalCourse} setCurrntPage={setCurrntPage} currentPage={
+        currentPage
+      }/>
     </div>
   );
 }
