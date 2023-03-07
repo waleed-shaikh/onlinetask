@@ -1,6 +1,9 @@
 .h-screen{
     height: 100vh;
 }
+.h-screen-80{
+    height: 80vh;
+}
 .h-100{
     height: 100%;
 }

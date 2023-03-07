@@ -1,4 +1,5 @@
-import { Form, message } from "antd";
+import { Form, Input } from "antd";
+import { message  } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -35,23 +36,16 @@ function Login() {
           </div>
           <div className="divider"></div>
           <Form layout="vertical" className="mt-2" onFinish={onFinish}>
-            <Form.Item name="email" label="Email">
-              <input type="text" placeholder="admin@gmail.com" required/>
+            <Form.Item name="email" label="E-mail" rules={[{ required: true, message: 'Please add a email'}]}>
+                <Input type="text" placeholder="admin@gmail.com"/>
             </Form.Item>
-            <Form.Item name="password" label="Password">
-              <input type="password" placeholder="1234" required/>
+            <Form.Item name="password" label="Password" rules={[{ required: true, message: 'Please add a password'}]}> 
+              <Input type="password" placeholder="********" />
             </Form.Item>
-
             <div className="flex flex-col gap-2">
-              <button
-                type="submit"
-                className="primary-contained-btn mt-2 w-100"
-              >
-                Login
-              </button>
-              <Link to="/register" className="underline text-center">
-                Not a member? Register
-              </Link>
+              <button type="submit" className="primary-contained-btn mt-2 w-100">Login</button>
+              <Link to="/register" className="text-center mt-3">Not a member? Register Now</Link>
+              <Link to="/forgot-password" className="text-center">Forgot Password</Link>
             </div>
           </Form>
         </div>

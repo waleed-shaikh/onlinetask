@@ -70,8 +70,14 @@ router.post("/get-course-by-id", authMiddleware, async (req, res) => {
 //get course by name
 router.post("/search-course", authMiddleware, async (req, res) => {
   try {
-    const name = req.body.name;
-    const existCourse = await Course.find({name: new RegExp(name, "i")});
+    // check already exists or not
+    // const {name} = req.body.name;
+    // let query = {};
+    // if(name) {
+    //   query.name = name;
+    // }
+
+    const existCourse = await Course.find({name: req.body.name});
     // return console.log(existCourse)
     if(existCourse.length === 0) {
       return res.send({

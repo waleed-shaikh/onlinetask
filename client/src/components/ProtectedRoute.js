@@ -1,4 +1,4 @@
-import { message } from "antd";
+import { message  } from "antd";
 import React, { useEffect, useState } from "react";
 import { getUserInfo } from "../apicalls/users";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,7 @@ import { HideLoading, ShowLoading } from "../redux/loaderSlice";
 function ProtectedRoute({ children }) {
   const { user } = useSelector((state) => state.users);
   const [menu, setMenu] = useState([]);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userMenu = [
@@ -31,6 +31,7 @@ function ProtectedRoute({ children }) {
       icon: <i className="ri-logout-box-line"></i>,
       onClick: () => {
         localStorage.removeItem("token");
+        message.success('logout successfull');
         navigate("/login");
       },
     },
@@ -67,6 +68,7 @@ function ProtectedRoute({ children }) {
       icon: <i className="ri-logout-box-line"></i>,
       onClick: () => {
         localStorage.removeItem("token");
+        message.success('logout successfull');
         navigate("/login");
       },
     },
@@ -165,7 +167,7 @@ function ProtectedRoute({ children }) {
               <h1 className="text-2xl text-white ps-3 ">Online Lecture Scheduling</h1>
               <div className="pe-3">
                 <div className="flex gap-1 items-center">
-                  <h1 className="text-md text-white">{user?.name}</h1>
+                  <h1 className="text-md text-white">{(user?.name)?.charAt(0).toUpperCase() + (user?.name)?.slice(1)}</h1>
                 </div>
                 <span>Role : {user?.isAdmin ? "Admin" : "User"}</span>
               </div>

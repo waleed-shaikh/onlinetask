@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 
-const Pagination = ({totalCourse, coursePerPage, setCurrentPage, currentPage}) => {
+const Pagination = ({totalUser, userPerPage, setCurrentPage, currentPage}) => {
     const pageNumbers = [];
-    for(let i=1; i<=Math.ceil(totalCourse / coursePerPage); i++){
+    for(let i=1; i<=Math.ceil(totalUser / userPerPage); i++){
         pageNumbers.push(i);
     }
   return (
@@ -14,13 +13,12 @@ const Pagination = ({totalCourse, coursePerPage, setCurrentPage, currentPage}) =
             <button className="page-item" disabled={currentPage === 1} onClick={()=>{setCurrentPage(currentPage-1)}}>Previous</button>
                     {pageNumbers?.map((number)=>{
                         return <button key={number} className="page-item" onClick={()=>{
-                            setCurrentPage(number) 
-                            console.log(number)
+                            setCurrentPage(number)
                         }}>
                             {number}
                         </button>
                     })}
-            <button className="page-item" disabled={currentPage === Math.ceil(totalCourse / coursePerPage)} onClick={()=>{setCurrentPage(currentPage+1)}}>Next</button>
+            <button className="page-item" disabled={currentPage === Math.ceil(totalUser / userPerPage)} onClick={()=>{setCurrentPage(currentPage+1)}}>Next</button>
             </ul>
         </nav>
     </div>

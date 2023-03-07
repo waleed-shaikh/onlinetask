@@ -11,7 +11,7 @@ import {
   } from "../../../apicalls/course";
 import { HideLoading, ShowLoading } from '../../../redux/loaderSlice';
 
-const AddEditInstructorModal = ({courseImage}) => {
+const AddEditInstructorModal = ({getAssignedInstructors}) => {
     
     const params = useParams();
     const dispatch = useDispatch();
@@ -27,26 +27,21 @@ const AddEditInstructorModal = ({courseImage}) => {
     const onFinish = async (values)=>{
         try {
             dispatch(ShowLoading());
-            const user = users && users.filter((user)=>{
+            const selectedUser = users && users.filter((user)=>{
               return user.name === values.name
             });
             let response;
             if (params.id) {
               response = await saveCourse({
-                name: values.name,
-                instructorId: user[0]?._id,
+                user: selectedUser[0]?._id,
                 date: values.date,
                 batche: values.batche,
-                courseId: params.id,
-                courseName: course?.name,
-                courseLevel: course?.level,
-                courseDesc: course?.description,
-                courseImage: courseImage,
+                course: params.id,
               });
             }
             if (response.success) {
               message.success(response.message);
-              navigate(`/admin/course/edit/${params.id}`);
+              getAssignedInstructors();
             } else {
               message.error(response.message);
             }
@@ -90,6 +85,7 @@ const AddEditInstructorModal = ({courseImage}) => {
         message.error(error.message);
       }
     };
+    
     useEffect(() => {
         if (params.id) {
             getAllInstructors();
@@ -108,7 +104,7 @@ const AddEditInstructorModal = ({courseImage}) => {
             <div className="modal-body">
             <Form onFinish={onFinish} layout="vertical">
                 <Form.Item name="name" label="Select Instructor">
-                    <select name="" id="">
+                    <select name="" id="" required>
                       <option value="">Select Instructor</option>
                       {newUsers && newUsers.map((user)=>{
                         return <option key={user?._id} value={user.name}>{user.name}</option>
@@ -116,10 +112,11 @@ const AddEditInstructorModal = ({courseImage}) => {
                     </select>
                 </Form.Item>
                 <Form.Item name="date" label="Select Date">
-                    <input type="date" required/>
+                    <input type="date" required={true}/>
                 </Form.Item>
                 <Form.Item name="batche" label="Select Batche">
                     <select name="" id="">
+                      <option value="">Select Batch</option>
                       <option value="morning">Morning</option>
                       <option value="afternoon">afternoon</option>
                       <option value="evening">evening</option>

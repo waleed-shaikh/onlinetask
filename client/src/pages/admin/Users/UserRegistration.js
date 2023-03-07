@@ -1,5 +1,7 @@
-import { Col, Form, message, Row } from "antd";
+import { Col, Form, Row } from "antd";
 import React, { useEffect } from "react";
+import { message  } from "antd";
+
 import {
   registerUser,
   editUserById,
@@ -70,7 +72,7 @@ function UserRegistration() {
   }, []);
 
   return (
-    <div>
+    <div className="min-vh-100">
       <PageTitle title={params.id? "Edit User" : "Add User"} />
       <div className="divider"></div>
 

@@ -4,10 +4,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
 const nodemailer = require('nodemailer');
-const passport = require('passport');
-require('../middlewares/passportAuth');
-const passportMiddleware = passport.authenticate('jwt', { session: false })
-
 
 // user registration (no login required)
 router.post("/register", async (req, res) => {
@@ -42,7 +38,7 @@ router.post("/register", async (req, res) => {
 });
 
 // user login (no login required)
-router.post("/login" ,async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     // check if user exists
     const user = await User.findOne({ email: req.body.email });
@@ -81,9 +77,8 @@ router.post("/login" ,async (req, res) => {
   }
 });
 
-
 // get user info (login required)
-router.get("/get-user-info", authMiddleware, async (req, res) => {
+router.post("/get-user-info", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.body.userId);
     res.send({
@@ -100,32 +95,8 @@ router.get("/get-user-info", authMiddleware, async (req, res) => {
   }
 });
 
-// router.post("/get-user-info", (req,res,next)=>{
-//   passport.authenticate('jwt', { session: false },(err, user, info)=>{
-//     if (err) {
-//       return res.status(400).send({
-//         message: err.message,
-//         success: false
-//       })
-//     }
-//     if (info != undefined) {
-//       return res.send({
-//         message: info.message,
-//         success: false
-//       });
-//     }
-//     return res.status(200).send({
-//       message: 'user fetched successfully',
-//       data: user,
-//       success: true
-//     })
-//   })
-// });
-
-
-
 // get all users (login required)
-router.post("/get-all-users", passportMiddleware, async (req, res) => {
+router.post("/get-all-users", authMiddleware, async (req, res) => {
   try {
     const users = await User.find();
     res.send({
@@ -143,7 +114,7 @@ router.post("/get-all-users", passportMiddleware, async (req, res) => {
 });
 
 // get all instrutors by course id (login required)
- router.post("/get-all-instrutors", passportMiddleware, async (req, res) => {
+ router.post("/get-all-instrutors", authMiddleware, async (req, res) => {
    try {
      const users = await User.find();
      res.send({
@@ -161,7 +132,7 @@ router.post("/get-all-users", passportMiddleware, async (req, res) => {
  });
 
 // delete user by id (login required)
-router.post("/delete-user-by-id", passportMiddleware, async (req, res) => {
+router.post("/delete-user-by-id", authMiddleware, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.body.id);
     res.send({
@@ -338,12 +309,10 @@ router.post("/password-reset", async (req, res) => {
 });
 
 // get user by name
-router.post("/get-user", passportMiddleware, async (req, res) => {
+router.post("/get-user", authMiddleware, async (req, res) => {
   try {
-    let name = req.body.name
-    const user = await User.find({name: new RegExp(name, "i")});
-    // return console.log(user)
-    if(user.length === 0){
+    const user = await User.findOne({name: req.body.name});
+    if(!user){
       return res.status(400).send({
       message: "User not found",
       success: false,

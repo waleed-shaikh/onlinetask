@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import Profile from "./pages/user/Profile/Profile";
 import UserRegistration from "./pages/admin/Users/UserRegistration";
 import AddEditCourse from "./pages/admin/Course/AddEditCourse";
+import ForgotPassword from "./pages/common/Login/ForgotPassword";
+import PasswordReset from "./pages/common/Login/PasswordReset";
 
 function App() {
   const { loading } = useSelector((state) => state.loader);
@@ -26,6 +28,8 @@ function App() {
         <Routes>
           {/* Common Routes */}
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgot-password/:id" element={<PasswordReset/>} />
           <Route path="/register" element={<Register />} />
 
           {/* User Routes */}

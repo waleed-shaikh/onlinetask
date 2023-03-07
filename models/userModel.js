@@ -17,19 +17,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    courses:{
-      type: Array
-    },
     isAdmin: {
       type: Boolean,
       default: false,
-    },
+    }
   },
   {
     timestamps: true,
   }
 );
 
-const userModel = mongoose.model("users", userSchema);
+userSchema.set('autoIndex', true);
 
+const userModel = mongoose.model("users", userSchema);
 module.exports = userModel;

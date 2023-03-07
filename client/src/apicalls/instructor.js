@@ -1,7 +1,6 @@
 const { default: axiosInstance } = require(".");
 
 // add Course
-
 export const addInstructor = async (payload) => {
   try {
     const response = await axiosInstance.post("/api/user/add", payload);
@@ -42,8 +41,6 @@ export const getAllCourseInstructor = async (payload) => {
   }
 };
 
-
-
 // edit Instructor by id
 
 export const editInstructorById = async (payload) => {
@@ -59,7 +56,6 @@ export const editInstructorById = async (payload) => {
 };
 
 // delete Course by id
-
 export const deleteInstructorById = async (payload) => {
   try {
     const response = await axiosInstance.post(
@@ -73,10 +69,63 @@ export const deleteInstructorById = async (payload) => {
 };
 
 
-// save course
+// save course to instructor
 export const saveCourse = async (payload) => {
   try {
-    const response = await axiosInstance.post("/api/users/save-course", payload);
+    const response = await axiosInstance.post("/api/assignCourse/save-course", payload);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+// get all Assign Instructors by course Id
+export const getAllAssignInstructors = async (payload) => {
+  try {
+    const response = await axiosInstance.post("/api/assignCourse/get-all-assign-instrutors", payload);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+// delete assigned instructors by assigned id
+export const deleteAssignedInstructor = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/assignCourse/delete-assigned-instructor",
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+//search Instructor Data by instructor name and course id
+export const searchInstructorData = async (payload) => {
+  try {
+    const response = await axiosInstance.post("/api/assignCourse/get-assign-instrctor", payload);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+// get all assigned course by user id
+export const getAssignedCourses = async (payload) => {
+  try {
+    const response = await axiosInstance.post("/api/assignCourse/get-assigned-course", payload);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+// delete assign instructors by course id
+export const editAssignedInstructors = async (payload) => {
+  try {
+    const response = await axiosInstance.post("/api/assignCourse/edit-assigned-instructors", payload);
     return response.data;
   } catch (error) {
     return error.response.data;
