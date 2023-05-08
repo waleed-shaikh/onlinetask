@@ -12,14 +12,14 @@ router.post("/add", authMiddleware, async (req, res) => {
     });
     if (courseExist) {
       return res.status(200).send({
-        message: "Course already exists",
+        message: "Taks already exists",
         success: false,
       });
     }
     const newCourse = new Course(req.body);
     await newCourse.save();
     res.send({
-      message: "Course added successfully",
+      message: "Task added successfully",
       success: true,
     });
   } catch (error) {
@@ -36,7 +36,7 @@ router.post("/get-all-courses", authMiddleware, async (req, res) => {
   try {
     const courses = await Course.find();
     res.send({
-      message: "Course fetched successfully",
+      message: "Task fetched successfully",
       data: courses,
       success: true,
     });
@@ -54,7 +54,7 @@ router.post("/get-course-by-id", authMiddleware, async (req, res) => {
   try {
     const course = await Course.findById(req.body.courseId);
     res.send({
-      message: "Course fetched successfully",
+      message: "Task fetched successfully",
       data: course,
       success: true,
     });
@@ -80,7 +80,7 @@ router.post("/search-course", authMiddleware, async (req, res) => {
       });
     } 
     return res.status(200).send({
-      message: "Course fetched successfully",
+      message: "Task fetched successfully",
       success: true,
       data: existCourse,
     });
@@ -98,7 +98,7 @@ router.post("/edit-course-by-id", authMiddleware, async (req, res) => {
   try {
     await Course.findByIdAndUpdate(req.body.courseId, req.body);
     res.send({
-      message: "Course edited successfully",
+      message: "Task edited successfully",
       success: true,
     });
   } catch (error) {
@@ -115,7 +115,7 @@ router.post("/delete-course-by-id", authMiddleware, async (req, res) => {
   try {
     await Course.findByIdAndDelete(req.body.courseId);
     res.send({
-      message: "Course deleted successfully",
+      message: "Task deleted successfully",
       success: true,
     });
   } catch (error) {

@@ -18,6 +18,7 @@ function ForgotPassword() {
             let sentResponse;
             dispatch(HideLoading());
             if (response.success) {
+                message.success(response.message);
                 // send reset password link
                 try {
                     sentResponse = sendResetPasswordLink({
@@ -25,7 +26,7 @@ function ForgotPassword() {
                         url: `http://localhost:3000/forgot-password/${response.data._id}`,
                     });
                     if(response.success){
-                        message.success(sentResponse.message);
+                        // message.success(sentResponse.message);
                     } else {
                         message.error(sentResponse.message);
                     }

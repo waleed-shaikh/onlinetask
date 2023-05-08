@@ -363,4 +363,11 @@ router.post("/get-user", passportMiddleware, async (req, res) => {
   }
 });
 
+//get ip address
+router.get('/getIpAddress', (req, res) => {
+  const ipAddress = req.socket.localAddress;
+  console.log('haha')
+  res.json({ ipAddress });
+});
+
 module.exports = router;
