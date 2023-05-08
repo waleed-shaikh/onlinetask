@@ -116,20 +116,20 @@ function AllTasks() {
                     </thead>
                     <tbody>
                             {assignedInstructors?.map((course, index) => {
-                            return  <tr className='m-2' key={course._id}>
+                            return  <tr className='m-2' key={course?._id}>
                                         <td className='ps-4'>{index+1}</td>
-                                        <td className='ps-4'>{course.course.name}</td>
-                                        <td className='ps-4'>{course.course.level}</td>
-                                        <td className='ps-4'>{course?.user.name}</td>
-                                        <td className='ps-4'>{course?.user.number}</td>
+                                        <td className='ps-4'>{course?.course?.name}</td>
+                                        <td className='ps-4'>{course?.course?.level}</td>
+                                        <td className='ps-4'>{course?.user?.name}</td>
+                                        <td className='ps-4'>{course?.user?.number}</td>
                                         <td className='ps-4'>{course?.date}</td>
-                                        <td className={`ps-4 ${course.status === 'pending'? 'text-danger': 'text-success'}`}>{course?.status}</td>
+                                        <td className={`ps-4 ${course?.status === 'pending'? 'text-danger': 'text-success'}`}>{course?.status}</td>
                                         <td className='ps-4'>
                                         <div className="flex gap-2">
                                             <Popconfirm
                                             title="Confirm?"
                                             onConfirm={()=>{
-                                                deleteTask(course._id)
+                                                deleteTask(course?._id)
                                             }}
                                             okText="Yes"
                                             cancelText="No"
@@ -162,12 +162,12 @@ function AllTasks() {
                     </thead>
                     <tbody>
                             {allPendingAssignTasks?.map((course, index) => {
-                            return  <tr className='m-2' key={course._id}>
+                            return  <tr className='m-2' key={course?._id}>
                                         <td className='ps-4'>{index+1}</td>
-                                        <td className='ps-4'>{course.course.name}</td>
-                                        <td className='ps-4'>{course.course.level}</td>
-                                        <td className='ps-4'>{course?.user.name}</td>
-                                        <td className='ps-4'>{course?.user.number}</td>
+                                        <td className='ps-4'>{course?.course?.name}</td>
+                                        <td className='ps-4'>{course?.course?.level}</td>
+                                        <td className='ps-4'>{course?.user?.name}</td>
+                                        <td className='ps-4'>{course?.user?.number}</td>
                                         <td className='ps-4'>{course?.date}</td>
                                         <td className={`ps-4 text-danger`}>{course?.status}</td>
                                         <td className='ps-4'>
@@ -175,7 +175,7 @@ function AllTasks() {
                                             <Popconfirm
                                             title="Confirm?"
                                             onConfirm={()=>{
-                                                deleteTask(course._id)
+                                                deleteTask(course?._id)
                                             }}
                                             okText="Yes"
                                             cancelText="No"
@@ -208,12 +208,12 @@ function AllTasks() {
                     </thead>
                     <tbody>
                             {allCompletedAssignTasks?.map((course, index) => {
-                            return  <tr className='m-2' key={course._id}>
+                            return  <tr className='m-2' key={course?._id}>
                                         <td className='ps-4'>{index+1}</td>
-                                        <td className='ps-4'>{course.course.name}</td>
-                                        <td className='ps-4'>{course.course.level}</td>
-                                        <td className='ps-4'>{course?.user.name}</td>
-                                        <td className='ps-4'>{course?.user.number}</td>
+                                        <td className='ps-4'>{course?.course?.name}</td>
+                                        <td className='ps-4'>{course?.course?.level}</td>
+                                        <td className='ps-4'>{course?.user?.name}</td>
+                                        <td className='ps-4'>{course?.user?.number}</td>
                                         <td className='ps-4'>{course?.date}</td>
                                         <td className='ps-4 text-success'>{course?.status}</td>
                                         <td className='ps-4'>
@@ -221,7 +221,7 @@ function AllTasks() {
                                             <Popconfirm
                                             title="Confirm?"
                                             onConfirm={()=>{
-                                                deleteTask(course._id)
+                                                deleteTask(course?._id)
                                             }}
                                             okText="Yes"
                                             cancelText="No"
