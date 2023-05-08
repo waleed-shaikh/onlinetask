@@ -176,7 +176,7 @@ function ProtectedRoute({ children }) {
                   onClick={() => setCollapsed(false)}
                 ></i>
               )}
-              <h1 className="text-2xl text-white ps-3 ">Online Task Assign</h1>
+              <h1 className="text-2xl text-white ps-3 ">Project Management</h1>
               <div className="pe-3">
                 <div className="flex gap-1 items-center">
                   <h1 className="text-md text-white">{(user?.name)?.charAt(0).toUpperCase() + (user?.name)?.slice(1)}</h1>
