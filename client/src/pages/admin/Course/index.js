@@ -30,7 +30,6 @@ function Course() {
       dispatch(HideLoading());
       if (response.success) {
         setCourse(response.data);
-        message.success(response.message);
       } else {
         message.error(response.message);
       }
@@ -83,26 +82,26 @@ function Course() {
   return (
     <div className="min-vh-100">
       <div className="flex justify-between mt-2 items-end">
-        <PageTitle title="Course" />
+        <PageTitle title="Task" />
         <button
           className="primary-outlined-btn flex items-center"
           onClick={() => navigate("/admin/course/add")}
         >
           <i className="ri-add-line"></i>
-          Add Course
+          Add Task
         </button>
       </div>
       <div className="divider"></div>
       <SearchCourse setCourse={setCourse} refreshData={getCourseData}/>
       <div className="divider"></div>
-      <h1 className='text-xl pt-3'>All Course</h1>
+      <h1 className='text-xl pt-3'>All Task</h1>
       <div className="overflow">
           <table className='table table-light table-bordered w-100 m-0 mt-3'>
               <thead className='p-2 py-3 table-secondary'>
                   <tr>
-                      <th scope="col" className='py-2 ps-4'>Course Name</th>
-                      <th scope="col" className='py-2 ps-4'>Course Level</th>
-                      <th scope="col" className='py-2 ps-4'>Course Description</th>
+                      <th scope="col" className='py-2 ps-4'>Task Name</th>
+                      <th scope="col" className='py-2 ps-4'>Task Level</th>
+                      <th scope="col" className='py-2 ps-4'>Task Description</th>
                       <th scope="col" className='py-2 ps-4'>Action</th>
                   </tr>
               </thead>

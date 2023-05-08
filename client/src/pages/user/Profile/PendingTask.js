@@ -7,10 +7,9 @@ import { getAllCourse } from "../../../apicalls/course";
 import { getAssignedCourses } from "../../../apicalls/instructor";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 import { Link, useNavigate } from "react-router-dom";
-import SearchLecture from "./SearchLecture";
 import {updateTaskById} from "../../../apicalls/instructor";
 
-function Home() {
+function PendingTask() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.users);
@@ -26,7 +25,7 @@ function Home() {
       const response = await getAllCourse();
       dispatch(HideLoading());
       if (response.success) {
-        setCourses((response.data).reverse());
+        setCourses(response.data);
       } else {
         message.error(response.message);
       }
@@ -105,24 +104,18 @@ function Home() {
           setSpan(8);
       }
   }, [width]);
-
-  return (
-    <>
-    <div className="min-vh-100">
-      <div className="mt-3">
-        <PageTitle title={`Hi ${(user?.name)?.charAt(0).toUpperCase() + (user?.name)?.slice(1)}`} />
+  return ( 
+    <div className='mt-3 h-screen'>
+        <PageTitle title="Pending Tasks"/>
         <div className="divider"></div>
-        {user?.isAdmin !== true? <div>
-          <SearchLecture assignedCourse={assignedCourse}/>
-          <div className="divider"></div>
-          <div>
-              <h1 className="text-2xl py-3">All Assign Tasks</h1>
-          </div>
-          <div className="home">
+        <div className='d-flex justify-content-end align-items-center'>
+            <h5 className="text-xl text-center py-1 p-2 rounded">Total Tasks: <span className='m-0 p-0 bg-warning px-2 rounded-pill py-1'>{assignedCourse?.length}</span></h5>
+        </div>
+        <div className="home">
             <Row gutter={[16, 16]}>
               {assignedCourse?.map((course) => (
                 <>
-                {(!course.deleted) && <Col key={course?.courseName} span={span} className='d-flex p-2'>
+                {(!course?.deleted && course?.status === 'pending') && <Col key={course?.courseName} span={span} className='d-flex p-2'>
                   <div className="card-lg flex flex-col gap-2 p-2 w-100 border border-1 rounded " style={{backgroundColor: '#f9f9f9'}}>
                     <div className='d-flex justify-content-between align-items-center bg-dark px-2 py-1 rounded'>
                       <h1 className="text-2xl text-white">{capitalizeFirstLetter(course?.course.name)}</h1>
@@ -150,31 +143,8 @@ function Home() {
               ))}
             </Row>
           </div>
-        </div> : <div>
-        <div>
-            <h1 className="text-2xl text-center py-3">All Tasks</h1>
-        </div>
-        <div className="home">
-          <Row gutter={[16, 16]}>
-            {courses?.map((course) => (
-              <>
-              <Col key={course?._id} span={span} className='d-flex p-2'>
-                <div className="card-lg flex flex-col gap-2 border border-secondary rounded p-3 w-100" style={{backgroundColor: 'lightgray'}}>
-                  <h1 className="text-2xl bg-dark text-white px-2 py-1 rounded" style={{backgroundColor: '#333333'}}>{capitalizeFirstLetter(course?.name)}</h1>
-                  <h1 className="text-md">Level : {course?.level}</h1>
-                  <h1 className="text-md">Description : {course?.description}</h1>
-                  <button className='rounded border-0 py-1' onClick={() => navigate(`/admin/course/edit/${course?._id}`)}>Assign Instructor</button>
-                </div>
-              </Col>
-              </>
-            ))}
-          </Row>
-        </div>
-        </div>}
-      </div>
     </div>
-    </>
-  );
+  )
 }
 
-export default Home;
+export default PendingTask

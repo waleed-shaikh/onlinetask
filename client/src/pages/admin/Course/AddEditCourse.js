@@ -15,43 +15,9 @@ function AddEditCourse() {
   const navigate = useNavigate();
   const [courseData, setCourseData] = useState(null);
   const [assignedInstructors, setAssignedInstructors] = useState(null);
-  const [pic, setPic] = useState(null);
   const params = useParams();
 
-  //image API: api.cloudinary.com
-  const postDetails = (image) => {
-    if (!image) {
-        return message.error('Please Select an image');
-    }
-    if (image.type === 'image/jpeg' || image.type === 'image/png') {
-        const data = new FormData();
-        data.append('file', image);
-        data.append('upload_preset', 'onlinelecture');
-        data.append('cloud_name', 'Krantikaari');
-        fetch('https://api.cloudinary.com/v1_1/dn5oapayl/image/upload/', {
-            method: 'post',
-            body: data,
-        }).then((res) => res.json()).then((data) => {
-            setPic(data.url);
-        }).catch((err) => {
-            message.error(err);
-        })
-    } else {
-        return message.error('Please Select an image');
-    }
-  };
-
-  const fileChangedHandler = (event)=>{
-    postDetails(event.target.files[0])
-    let file = event.target.files[0];
-    if (file.size > 10e6) {
-      window.alert("Please upload a file smaller than 10 MB");
-      return false;
-    }
-  }
-
   const onFinish = async (values) => {
-    values.image = pic;
     try {
       dispatch(ShowLoading());
       let response;
@@ -89,9 +55,7 @@ function AddEditCourse() {
             level: response.data.level,
             description: response.data.description,
             _id: response.data._id,
-            image: response.data.image
         });
-        setPic(response.data.image)
       } else {
         message.error(response.message);
       }
@@ -150,29 +114,29 @@ function AddEditCourse() {
 
   return (
     <div className="min-vh-100">
-      <PageTitle title={params.id? "Edit Course" : "Add Course"} />
+      <PageTitle title={params.id? "Edit Task" : "Add Task"} />
       <div className="divider"></div>
       <div>
       {(courseData || !params.id)  && (
         <Form layout="ho" onFinish={onFinish} initialValues={courseData}>
           <Tabs defaultActiveKey="1">
-            <Tabs.TabPane tab="Course Details" key="1">
-              <Row gutter={[10, 10]}>
+            <Tabs.TabPane tab="Task Details" key="1">
+              <Row gutter={[10, 10]} className='d-flex flex-column'>
                 <Col span={8}>
-                  <Form.Item label="Course Name" name="name" rules={[
+                  <Form.Item label="Task Name" name="name" rules={[
                     {
                       required: true,
-                      message: 'Please input course details!',
+                      message: 'Please input task details!',
                     },
                   ]}>
                     <input type="text" maxLength={20} minLength={3}/>
                   </Form.Item>
                 </Col>
                 <Col span={8}>
-                  <Form.Item label="Course Level" name="level" rules={[
+                  <Form.Item label="Task Level" name="level" rules={[
                     {
                       required: true,
-                      message: 'Please select course level!',
+                      message: 'Please select task level!',
                     },
                   ]}>
                     <select name="" id="" >
@@ -187,24 +151,14 @@ function AddEditCourse() {
                   <Form.Item label="Description" name="description"  rules={[
                     {
                       required: true,
-                      message: 'Please input course description!',
+                      message: 'Please input task description!',
                     },
                   ]}>
                     <input type="text" maxLength={100} minLength={10}/>
                   </Form.Item>
                 </Col>
-                <Col span={8}>
-                  <Form.Item label="Upload Image" name="image"> 
-                  <div className="d-flex">
-                    <div className="d-flex align-items-center">
-                      {courseData && <img src={courseData?.image} className='w-25 me-3' alt="Loading"/>}
-                      <input value='' type="file" accept="image/x-png, image/gif, image/jpeg" onChange={fileChangedHandler} max-size='32'/>
-                    </div>
-                  </div>
-                  </Form.Item>
-                </Col>
               </Row>
-              <div className="flex justify-end gap-2">
+              <div className="flex justify-start gap-2 mt-4">
                 <button
                   className="primary-outlined-btn"
                   type="button"
@@ -212,14 +166,14 @@ function AddEditCourse() {
                   >
                   Cancel
                 </button>
-                <button className="primary-contained-btn" type="submit" disabled={!pic}>
+                <button className="primary-contained-btn" type="submit">
                   Save
                 </button>
               </div>
               <div className="divider"></div>
             </Tabs.TabPane>
             {params.id && (
-              <Tabs.TabPane tab="Instructors" key="2">
+              <Tabs.TabPane tab="Users" key="2">
                 <div className="flex justify-between align-items-center mt-3">
                   <h1 className="text-xl">{getUpperCase(courseData.name)  + ' ' + getUpperCase(courseData.level)}</h1>
                   <div className="flex justify-between ">
@@ -227,14 +181,14 @@ function AddEditCourse() {
                       className="primary-outlined-btn cursor-pointer"
                       data-bs-toggle="modal" data-bs-target="#exampleModal"
                       type="button">
-                      Assign Instructor
+                      Assign Tasks
                     </button>
                     </div>
                 </div>
                 <div className="divider"></div>
                 {assignedInstructors && 
                 <>
-                <h1 className="text-xl mt-3">Instructors</h1>
+                <h1 className="text-xl mt-3">Assigned Users</h1>
                 <div>
                   <div className="overflow">
                       <table className='table table-light table-bordered w-100 m-0 mt-3'>
@@ -242,20 +196,20 @@ function AddEditCourse() {
                               <tr>
                                   <th scope="col" className='py-2 ps-4'>Name</th>
                                   <th scope="col" className='py-2 ps-4'>Date</th>
-                                  <th scope="col" className='py-2 ps-4'>Batche</th>
                                   <th scope="col" className='py-2 ps-4'>Mobile Number</th>
                                   <th scope="col" className='py-2 ps-4'>Email Id</th>
-                                  <th scope="col" className='py-2 ps-4'>Action</th>
+                                  <th scope="col" className='py-2 ps-4'>Status</th>
+                                  <th scope="col" className='py-2 ps-4'>Actions</th>
                               </tr>
                           </thead>
                           <tbody>
                                 {assignedInstructors?.map((instructor, index) => {
-                                return  <tr className='m-2' key={instructor._id}>
-                                          <td className='ps-4'>{(instructor.user.name).charAt(0).toUpperCase() + (instructor.user.name).slice(1)}</td>
-                                          <td className='ps-4'>{instructor.date}</td>
-                                          <td className='ps-4'>{instructor.batche}</td>
-                                          <td className='ps-4'>{instructor.user.number}</td>
-                                          <td className='ps-4'>{instructor.user.email}</td>
+                                return  <tr className='m-2' key={instructor?._id}>
+                                          <td className='ps-4'>{(instructor?.user.name).charAt(0).toUpperCase() + (instructor?.user.name).slice(1)}</td>
+                                          <td className='ps-4'>{instructor?.date}</td>
+                                          <td className='ps-4'>{instructor?.user.number}</td>
+                                          <td className='ps-4'>{instructor?.user.email}</td>
+                                          <td className={`ps-4 text-${instructor?.status === 'pending'? 'danger' : 'success'}`}>{instructor?.status}</td>
                                           <td className='ps-4'>
                                             <div className="flex gap-2">
                                               <Popconfirm

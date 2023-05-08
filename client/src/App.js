@@ -18,6 +18,9 @@ import UserRegistration from "./pages/admin/Users/UserRegistration";
 import AddEditCourse from "./pages/admin/Course/AddEditCourse";
 import ForgotPassword from "./pages/common/Login/ForgotPassword";
 import PasswordReset from "./pages/common/Login/PasswordReset";
+import CompleteTask from "./pages/user/Profile/CompleteTast";
+import PendingTask from "./pages/user/Profile/PendingTask";
+import AllTasks from "./pages/admin/Course/AllTasks";
 
 function App() {
   const { loading } = useSelector((state) => state.loader);
@@ -49,12 +52,36 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/pending-task"
+            element={
+              <ProtectedRoute>
+                <PendingTask />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/complete-task"
+            element={
+              <ProtectedRoute>
+                <CompleteTask />
+              </ProtectedRoute>
+            }
+          />
           {/* Admin Routes */}
           <Route
             path="/admin/course"
             element={
               <ProtectedRoute>
                 <Course/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/all-task"
+            element={
+              <ProtectedRoute>
+                <AllTasks/>
               </ProtectedRoute>
             }
           />

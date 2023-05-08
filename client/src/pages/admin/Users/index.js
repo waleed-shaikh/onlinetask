@@ -86,8 +86,8 @@ function Users() {
                       <th scope="col" className='py-2 ps-4'>Name</th>
                       <th scope="col" className='py-2 ps-4'>Email Id</th>
                       <th scope="col" className='py-2 ps-4'>Mobile Number</th>
-                      <th scope="col" className='py-2 ps-4'>Role</th>
                       <th scope="col" className='py-2 ps-4'>Action</th>
+                      <th scope="col" className='py-2 ps-4'>Role</th>
                   </tr>
               </thead>
               <tbody>

@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 const assignCourseSchema = new mongoose.Schema(
   {
-    batche: {
-        type: String,
-        required: true
-    },
     date: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        default: 'pending'
     },
     course: {
         type: mongoose.Schema.Types.ObjectId,

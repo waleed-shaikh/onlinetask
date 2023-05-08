@@ -89,6 +89,36 @@ export const getAllAssignInstructors = async (payload) => {
   }
 };
 
+// get all Assign Tasks
+export const getAllAssignedTasks = async (payload) => {
+  try {
+    const response = await axiosInstance.post("/api/assignCourse/get-all-assign-tasks", payload);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+// get all Pending Assign Tasks
+export const getAllPendingAssignTasks = async (payload) => {
+  try {
+    const response = await axiosInstance.get("/api/assignCourse/get-all-pending-tasks", payload);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+// get all Completed Assign Tasks
+export const getAllCompletedAssignTasks = async (payload) => {
+  try {
+    const response = await axiosInstance.get("/api/assignCourse/get-all-completed-tasks", payload);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 // delete assigned instructors by assigned id
 export const deleteAssignedInstructor = async (payload) => {
   try {
@@ -126,6 +156,16 @@ export const getAssignedCourses = async (payload) => {
 export const editAssignedInstructors = async (payload) => {
   try {
     const response = await axiosInstance.post("/api/assignCourse/edit-assigned-instructors", payload);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+// update task by id
+export const updateTaskById = async (payload) => {
+  try {
+    const response = await axiosInstance.post("/api/assignCourse/update-task", payload);
     return response.data;
   } catch (error) {
     return error.response.data;

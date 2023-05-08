@@ -20,6 +20,18 @@ function ProtectedRoute({ children }) {
       onClick: () => navigate("/"),
     },
     {
+      title: "Complete",
+      paths: ["/complete-task"],
+      icon: <i className="ri-task-fill"></i>,
+      onClick: () => navigate("/complete-task"),
+    },
+    {
+      title: "Pending",
+      paths: ["/pending-task"],
+      icon: <i className="ri-arrow-right-up-line"></i>,
+      onClick: () => navigate("/pending-task"),
+    },
+    {
       title: "Profile",
       paths: ["/profile"],
       icon: <i className="ri-profile-fill"></i>,
@@ -57,10 +69,10 @@ function ProtectedRoute({ children }) {
       onClick: () => navigate("/admin/users"),
     },
     {
-      title: "Profile",
-      paths: ["/profile"],
-      icon: <i className="ri-profile-fill"></i>,
-      onClick: () => navigate("/profile"),
+      title: "All Tasks",
+      paths: ["/all-task"],
+      icon: <i className="ri-arrow-right-up-line"></i>,
+      onClick: () => navigate("/all-task"),
     },
     {
       title: "Logout",
@@ -164,7 +176,7 @@ function ProtectedRoute({ children }) {
                   onClick={() => setCollapsed(false)}
                 ></i>
               )}
-              <h1 className="text-2xl text-white ps-3 ">Online Lecture Scheduling</h1>
+              <h1 className="text-2xl text-white ps-3 ">Online Task Assign</h1>
               <div className="pe-3">
                 <div className="flex gap-1 items-center">
                   <h1 className="text-md text-white">{(user?.name)?.charAt(0).toUpperCase() + (user?.name)?.slice(1)}</h1>
@@ -212,7 +224,7 @@ function ProtectedRoute({ children }) {
               {children}
           </div>
           <div className="text-center mt-3 card rounded bg-primary">
-            <h1 className="text-sm p-3 text-white">&#169; Waleed Shaikh</h1>
+            <h1 className="text-sm p-3 text-white">&#169; Maheta Mihir</h1>
           </div>
         </div>
       </div>

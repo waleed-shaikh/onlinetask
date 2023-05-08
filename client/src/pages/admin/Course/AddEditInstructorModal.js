@@ -35,7 +35,6 @@ const AddEditInstructorModal = ({getAssignedInstructors}) => {
               response = await saveCourse({
                 user: selectedUser[0]?._id,
                 date: values.date,
-                batche: values.batche,
                 course: params.id,
               });
             }
@@ -103,9 +102,9 @@ const AddEditInstructorModal = ({getAssignedInstructors}) => {
             </div>
             <div className="modal-body">
             <Form onFinish={onFinish} layout="vertical">
-                <Form.Item name="name" label="Select Instructor">
+                <Form.Item name="name" label="Select User">
                     <select name="" id="" required>
-                      <option value="">Select Instructor</option>
+                      <option value="">Select User</option>
                       {newUsers && newUsers.map((user)=>{
                         return <option key={user?._id} value={user.name}>{user.name}</option>
                       })}
@@ -113,14 +112,6 @@ const AddEditInstructorModal = ({getAssignedInstructors}) => {
                 </Form.Item>
                 <Form.Item name="date" label="Select Date">
                     <input type="date" required={true}/>
-                </Form.Item>
-                <Form.Item name="batche" label="Select Batche">
-                    <select name="" id="">
-                      <option value="">Select Batch</option>
-                      <option value="morning">Morning</option>
-                      <option value="afternoon">afternoon</option>
-                      <option value="evening">evening</option>
-                    </select>
                 </Form.Item>
                 <div className="flex justify-end mt-2 gap-3">
                     <div className="modal-footer">

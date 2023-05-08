@@ -55,6 +55,63 @@ router.post('/get-all-assign-instrutors', authMiddleware, async(req, res)=>{
   }
 });
 
+// get all assign tasks
+router.post('/get-all-assign-tasks', authMiddleware, async(req, res)=>{
+  try {
+    const course = await AssignCourse.find()
+    .populate({ path: 'user' })
+    .populate({ path: 'course' })
+    res.status(200).send({
+      data: course,
+      success: true,
+    });
+
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      success: false
+    });
+  }
+});
+
+// get pending assign tasks
+router.get('/get-all-pending-tasks', authMiddleware, async(req, res)=>{
+  try {
+    const course = await AssignCourse.find({status: 'pending'})
+    .populate({ path: 'user' })
+    .populate({ path: 'course' })
+    res.status(200).send({
+      data: course,
+      success: true,
+    });
+
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      success: false
+    });
+  }
+});
+
+// get completed assign tasks
+router.get('/get-all-completed-tasks', authMiddleware, async(req, res)=>{
+  try {
+    const course = await AssignCourse.find({status: 'completed'})
+    .populate({ path: 'user' })
+    .populate({ path: 'course' })
+    res.status(200).send({
+      data: course,
+      success: true,
+    });
+
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      success: false
+    });
+  }
+});
+
 // delete assigned instrctor by assigned id
 router.post('/delete-assigned-instructor', authMiddleware, async(req, res)=>{
   try {
@@ -138,6 +195,30 @@ router.post('/edit-assigned-instructors', authMiddleware, async(req, res)=>{
     );
     return res.status(200).send({
       message: "All Assigned Instructors are deleted",
+      success: true,
+    });
+
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      success: false
+    });
+  }
+});
+
+
+//update task to complete by task id
+router.post('/update-task', authMiddleware, async(req, res)=>{
+  try {
+    const Task = await AssignCourse.findByIdAndUpdate(req.body.id, req.body, {new: true});
+    if(!Task){
+      return res.status(400).send({
+        message: "task not found",
+        success: false,
+      });
+    }
+    return res.status(200).send({
+      message: "task updated successfully",
       success: true,
     });
 

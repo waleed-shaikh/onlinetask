@@ -60,7 +60,7 @@ const SearchInstructor = ({setAssignedInstructors,courseData, refreshData}) => {
       {searchInstructor &&
       <div>
           <button className="primary-contained-btn" onClick={getAllInstructors}>
-                Get All Instructor
+                Get All Task
           </button>             
       </div>
       }
