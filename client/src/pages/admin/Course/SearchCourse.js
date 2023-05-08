@@ -40,7 +40,7 @@ const SearchCourse = ({setCourse, refreshData}) => {
     <>
     <div className='d-flex justify-between align-items-center'>
       <div className='pb-3 py-2 w-75'>
-          <h1 className='text-xl py-2'>Search Course</h1>
+          <h1 className='text-xl py-2'>Search Task</h1>
           <Form layout="horizontal" onFinish={onFinish}>
                 <Row className='d-flex' gutter={[10, 10]}>
                   <Col span={8}>
@@ -64,7 +64,7 @@ const SearchCourse = ({setCourse, refreshData}) => {
       {(searchCourse || !searchCourse) &&
       <div>
           <button className="primary-contained-btn" onClick={getAllCourse}>
-                Get All Course
+                Get All Task
           </button>             
       </div>
       }
