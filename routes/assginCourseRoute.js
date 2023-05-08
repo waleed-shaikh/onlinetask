@@ -37,7 +37,7 @@ router.post('/get-all-assign-instrutors', authMiddleware, async(req, res)=>{
     const course = await AssignCourse.find({course: req.body.course}).populate({ path: 'user' })
     if(!course){
       return res.send({
-        message: `Course not found`,
+        message: `Task not found`,
         success: false
       });
     }
@@ -138,7 +138,7 @@ router.post('/get-assign-instrctor', authMiddleware, async(req, res)=>{
     // return console.log(course);
     if(!course){
       return res.send({
-        message: `Course not found`,
+        message: `Task not found`,
         success: false
       });
     }
@@ -164,7 +164,7 @@ router.post('/get-assigned-course', authMiddleware, async(req, res)=>{
     }).populate({path: 'course'});
     if(!course){
       return res.send({
-        message: `Course not found`,
+        message: `Task not found`,
         success: false
       });
     }
@@ -194,7 +194,7 @@ router.post('/edit-assigned-instructors', authMiddleware, async(req, res)=>{
     }
     );
     return res.status(200).send({
-      message: "All Assigned Instructors are deleted",
+      message: "All Assigned Tasks are deleted",
       success: true,
     });
 

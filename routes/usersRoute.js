@@ -287,16 +287,15 @@ router.post("/check-email", async (req, res) => {
 // send reset password link to user email (no login required)
 router.post("/send-reset-password-link", async (req, res) => {
     try{
-        let transporter = nodemailer.createTransport({
-          host: "sandbox.smtp.mailtrap.io",
-          port: 2525,
+        let mailTransporter = nodemailer.createTransport({
+          service: 'gmail',
           auth: {
-            user: '04c0b31e41cf61', 
-            pass: 'f4d9e6e6d79fc5', 
-          },
+              user: 'mahetamihir7766@gmail.com',
+              pass: 'qclcdlnhmjwgcepd'
+          }
         });
-        await transporter.sendMail({
-          from: '"Fred Foo 👻" <waleedsdev@gmail.com>',
+        await mailTransporter.sendMail({
+          from: 'mahetamihir7766@gmail.com',
           to: req.body.email, 
           subject: "Password Reset", 
           text: req.body.url, 
